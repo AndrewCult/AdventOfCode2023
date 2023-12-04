@@ -1,66 +1,41 @@
-valid_digit = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
+valid_digit = {
+    'one': 1, 
+    'two': 2,
+    'three': 3,
+    'four': 4, 
+    'five': 5,
+    'six': 6, 
+    'seven': 7,
+    'eight': 8,
+    'nine': 9
+}
+
 result = 0
 
 file = open("puzzleInput.txt")
 
-def findFirst(line):
-    first = False
-    numberFound = ''
-
+def checkDigit(line):
+    if line[0].isdigit():
+        return int(line[0])
     
-    
-    return numberFound
-        
-
-
-def decodeNumber(line, word):
-    resultString = ''
-
-    match(word):
-        case 'one':
-            line.replace('one', '1')
-        case 'two':
-            line.replace('two', '2')
-        case 'three':
-            line.replace('three', '3')
-        case 'four':
-            line.replace('four', '4')
-        case 'five':
-            line.replace('five', '5')
-        case 'six':
-            line.replace('six', '6')
-        case 'seven':
-            line.replace('seven', '7')
-        case 'eight':
-            line.replace('eight', '8')
-        case 'nine':
-            line.replace('nine', '9')
-        case _:
-            resultString += word
-
-    resultString = word
-    
-    return line
-
+    # check if inside string line (in puzzleInput.txt) is present a number written in letter (stored in valid_digit), if not return None. 
+    wordNumber = next(filter(line.startswith, valid_digit), None)
+    return valid_digit.get(wordNumber, 0)
 
 
 for line in file:
-    resultString = ''
-    array_line = []
 
-    for word in valid_digit:
-        if word in line:
-            line = decodeNumber(line, word)
-    
+    for i in range(len(line)):
+        first = checkDigit(line[i:])
+        if first:
+            break
 
-    print(line)
+    for i in range(len(line) - 1, -1, -1):
+        last = checkDigit(line[i:])
+        if last:
+            break
 
-    #resultString += findFirst(line)
-    #resultString += findFirst(line[::-1])
-
-    
-
-    #result += int(resultString)
+    result += 10*first + last
 
 file.close()
 

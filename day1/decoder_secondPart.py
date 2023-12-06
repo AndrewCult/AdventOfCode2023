@@ -20,6 +20,7 @@ def checkDigit(line):
     
     # check if inside string line (in puzzleInput.txt) is present a number written in letter (stored in valid_digit), if not return None. 
     wordNumber = next(filter(line.startswith, valid_digit), None)
+    print(wordNumber)
     return valid_digit.get(wordNumber, 0)
 
 
